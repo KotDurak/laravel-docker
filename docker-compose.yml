@@ -7,8 +7,9 @@ services:
       dockerfile: docker/nginx.docker
     volumes:
       - ./:/var/www
+      - ./docker/nginx/ssl:/etc/nginx/ssl
     ports:
-      - "8080:80"
+      - "8080:443"
     links:
       - php-fpm
   php-fpm:
@@ -25,6 +26,21 @@ services:
       - "DB_HOST=mysql"
       - "REDIS_PORT=6379"
       - "REDIS_HOST=redis"
+  php-cli:
+    build:
+      context: ./
+      dockerfile: docker/php-cli.docker
+    volumes:
+      - ./:/var/www
+    links:
+      - mysql
+      - redis
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=mysql"
+      - "REDIS_PORT=6379"
+      - "REDIS_HOST=redis"
+    tty: true
   mysql:
     image: mysql:5.7
     volumes:
@@ -41,3 +57,10 @@ services:
     image: redis:3.0
     ports:
       - "63791:6379"
+  node:
+    build:
+      context: ./
+      dockerfile: docker/node.docker
+    volumes:
+      - ./:/var/www
+    tty: true
