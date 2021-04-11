@@ -10,6 +10,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_WAIT = 'wait';
+
     /**
      * The attributes that are mass assignable.
      *

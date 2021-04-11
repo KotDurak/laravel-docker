@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('breadcrumbs')
+    <ul class="breadcrumb">
+        <li class="breadcrumb-item">Tigr</li>
+        <li class="breadcrumb-item">Skotina</li>
+        <li class="breadcrumb-item">Foo</li>
+        <li class="breadcrumb-item">Bar</li>
+    </ul>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
