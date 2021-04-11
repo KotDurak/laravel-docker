@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Mail\VerifyMail;
+use App\Mail\Auth\VerifyMail;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
@@ -89,11 +89,11 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'verify_token'  => Str::random(),
+            'verify_code'  => Str::random(),
             'status'        => User::STATUS_WAIT
         ]);
 
-        Mail::to($user->email)->send(new VerifyMail($user));
+     //   Mail::to($user->email)->send(new VerifyMail($user));
         event(new Registered($user));
         return $user;
     }
